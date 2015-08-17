@@ -116,7 +116,6 @@
 
 (def y (list 1 (list 2 (list 3 4))))
 
-
 (defn scale-tree [tree op]
   (cond (nil? tree) nil
         (seq? tree) (cons (scale-tree (first tree) op) (scale-tree (next tree) op))
@@ -156,11 +155,40 @@
 (defn odd-fibs [n]
   (generate-fibs odd? n))
 
+(defn filter-list [predicate items]
+  (cond (nil? items) nil
+        (predicate (first items)) (cons (first items) (filter-list predicate (next items)))
+        :else (filter-list predicate (next items))))
 
+(defn enumerate-tree [tree]
+  (cond (nil? tree) nil
+        (seq? tree) (append-list (enumerate-tree (first tree))
+                                 (enumerate-tree (next tree)))
+        :else (list tree)))
 
+(defn filter-odd-tree [tree]
+  (filter-list odd? (enumerate-tree tree)))
 
+(defn accumulate [op initial items]
+  (if (nil? items)
+    initial
+    (op (first items) (accumulate op initial (next items)))))
 
+(defn append-list-acc [seq1 seq2]
+  (accumulate cons seq2 seq1))
 
+(defn map-list [p items]
+  (accumulate (fn [x y] (cons (p x) y)) nil items))
+
+(def x (list (list 1 2) (list 3 4)))
+
+(defn length [seq1]
+  (accumulate (fn [x y] (if (not (nil? x)) (inc y))) 0 seq1))
+
+(defn count-leaves-acc [tree]
+  (accumulate + 0 (map (fn [x] 1) (enumerate-tree tree))))
+
+;; (length (range 1 5))
 
 
 
