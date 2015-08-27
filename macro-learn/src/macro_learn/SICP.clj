@@ -182,19 +182,33 @@
 
 (def x (list (list 1 2) (list 3 4)))
 
-(defn length [seq1]
+(defn length-acc-lst [seq1]
   (accumulate (fn [x y] (if (not (nil? x)) (inc y))) 0 seq1))
+
+(defn length-acc [seq1]
+  (accumulate + 0 (map (fn [x] 1) seq1)))
 
 (defn count-leaves-acc [tree]
   (accumulate + 0 (map (fn [x] 1) (enumerate-tree tree))))
 
 ;; (length (range 1 5))
 
+(defn horner [value coefficient-seq]
+  (accumulate
+   (fn [this-coef higher-terms] (+ this-coef (* value higher-terms)))
+   0 coefficient-seq))
 
+(defn accumulate-n [op init seqs]
+  (if (nil? (first seqs))
+    nil
+    (cons (accumulate op init (map first seqs))
+          (accumulate-n op init (map next seqs)))))
 
+(accumulate-n + 0 (list (list 1 2 3) (list 2 3 4)))
 
-
-
+;; get item 1 dari list 1 dan list 2 -> accumulate
+;; get item 2 dari list 1 dan list 2 -> accumulate
+;; next next
 
 
 
