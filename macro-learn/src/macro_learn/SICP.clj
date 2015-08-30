@@ -84,29 +84,6 @@
         :else (+ (count-leaves (first lst))
                  (count-leaves (next lst)))))
 
-;; 1 2 3 4 5 => 10 20 30 40
-
-;; 1 2 3 4 5 => 1 3 5
-;;
-
-;; (1 2)
-;; (cons 2 (cons 1 nil))
-
-;; (1 2 3)
-;; (cons (
-
-;; (1 2 3 4) (4 3 2 1)
-;; (cons 4 (cons 3 (cons 2 (cons 1 nil))))
-;; (append 1 2 3 4)
-
-
-;; (append (1 2 3 4) (2 3 4 5))
-;; (cons 1 (append (2 3 4) (2 3 4 5)))
-;; (cons 1 (cons 2 (append (3 4) (2 3 4 5))))
-;; (cons 1 (cons 2 (cons 3 (append 4 (2 3 4 5)))))
-;; (cons 1 (cons 2 (cons 3 (cons 4 (2 3 4 5)))))
-
-
 (def x (cons (list 1 2) (list 3 4)))
 
 (defn fringe [items]
@@ -191,8 +168,6 @@
 (defn count-leaves-acc [tree]
   (accumulate + 0 (map (fn [x] 1) (enumerate-tree tree))))
 
-;; (length (range 1 5))
-
 (defn horner [value coefficient-seq]
   (accumulate
    (fn [this-coef higher-terms] (+ this-coef (* value higher-terms)))
@@ -204,13 +179,15 @@
     (cons (accumulate op init (map first seqs))
           (accumulate-n op init (map next seqs)))))
 
-(accumulate-n + 0 (list (list 1 2 3) (list 2 3 4)))
+(defn flatmap [proc seq]
+  (accumulate append-list nil
+              (map proc seq)))
 
-;; get item 1 dari list 1 dan list 2 -> accumulate
-;; get item 2 dari list 1 dan list 2 -> accumulate
-;; next next
+(defn prime? [n]
+  )
 
-
+(defn prime-sum? [pair]
+  (prime? (+ (first pair) (second pair))))
 
 
 
