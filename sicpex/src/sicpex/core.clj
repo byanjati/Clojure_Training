@@ -1,4 +1,4 @@
-(ns macro-learn.core
+(ns sicpex.core
   (:gen-class))
 
 (defn absis

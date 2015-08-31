@@ -1,3 +1,6 @@
+(ns sicpex.SICP
+  (:gen-class))
+
 (defn length-list [items]
   (if (nil? (first items))
     0
@@ -53,16 +56,16 @@
 
 (scale-list (list 1 2 3) 3)
 
-(defn native-map [lst op]
-  (if (nil? lst)
-    nil
-    (cons (op (first lst)) (native-map (next lst) square))))
+;; (defn native-map [lst op]
+;;   (if (nil? lst)
+;;     nil
+;;     (cons (op (first lst)) (native-map (next lst) square))))
 
-(defn square [x]
-  (* x x))
+;; (defn square [x]
+;;   (* x x))
 
-(defn square-list [items]
-  (native-map items square))
+;; (defn square-list [items]
+;;   (native-map items square))
 
 (range 1 5)
 
@@ -100,20 +103,20 @@
 
 ;; (scale-tree y 2)
 
-(defn square-tree [tree]
-  (scale-tree tree square))
+;; (defn square-tree [tree]
+;;   (scale-tree tree square))
 
-(defn subsets [s]
-  (if (nil? s)
-    (list nil)
-    (let [rest (subsets (next s))]
-      (append-list rest (map #(cons (first s) %) rest)))))
+;; (defn subsets [s]
+;;   (if (nil? s)
+;;     (list nil)
+;;     (let [rest (subsets (next s))]
+;;       (append-list rest (map #(cons (first s) %) rest)))))
 
-(defn sum-squared-odd [tree]
-  (cond (nil? tree) 0
-        (seq? tree) (+ (sum-squared-odd (first tree))
-                       (sum-squared-odd (next tree)))
-        :else (if (odd? tree) (square tree) 0)))
+;; (defn sum-squared-odd [tree]
+;;   (cond (nil? tree) 0
+;;         (seq? tree) (+ (sum-squared-odd (first tree))
+;;                        (sum-squared-odd (next tree)))
+;;         :else (if (odd? tree) (square tree) 0)))
 
 (defn fibs [n]
   (cond (or (= n 0) (= n 1)) 1
