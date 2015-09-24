@@ -67,8 +67,6 @@
 ;; (defn square-list [items]
 ;;   (native-map items square))
 
-(range 1 5)
-
 (defn for-each [lst op]
   (if (nil? lst)
     nil
@@ -182,16 +180,13 @@
     (cons (accumulate op init (map first seqs))
           (accumulate-n op init (map next seqs)))))
 
-(defn flatmap [proc seq]
+(defn flatmap [proc sequent]
   (accumulate append-list nil
-              (map proc seq)))
+              (map proc sequent)))
 
 (defn prime? [n]
   )
 
 (defn prime-sum? [pair]
   (prime? (+ (first pair) (second pair))))
-
-
-
 
